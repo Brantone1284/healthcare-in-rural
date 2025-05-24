@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Mobile Health Clinics for Rural Kenya provides healthcare access to rural communities, reducing mortality rates through mobile clinics.">
+  <meta name="keywords" content="mobile health clinics, rural healthcare Kenya, donate for health, malaria prevention">
+  <meta name="author" content="Mobile Health Clinics Team">
+  <title>Mobile Health Clinics for Rural Kenya</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .slider-container {
+      position: relative;
+      overflow: hidden;
+    }
+    .slider {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+    .slide {
+      min-width: 100%;
+      box-sizing: border-box;
+    }
+    #backToTop {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      display: none;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    #chatbotContainer {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      width: 320px;
+      max-height: 500px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      display: none;
+      flex-direction: column;
+      z-index: 1000;
+    }
+    #chatbotHeader {
+      background: #1e40af;
+      color: white;
+      padding: 10px;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    #chatbotMessages {
+      flex: 1;
+      padding: 10px;
+      overflow-y: auto;
+      background: #f9fafb;
+    }
+    #chatbotInput {
+      border-top: 1px solid #e5e7eb;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+    }
+    #chatbotInput input {
+      flex: 1;
+      padding: 8px;
+      border: 1px solid #d1d5db;
+      border-radius: 5px;
+      outline: none;
+    }
+    #chatbotInput button {
+      margin-left: 8px;
+      padding: 8px 12px;
+      background: #1e40af;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #chatbotToggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #1e40af;
+      color: white;
+      padding: 10px;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 1000;
+    }
+    .chat-message {
+      margin-bottom: 10px;
+      padding: 8px 12px;
+      border-radius: 10px;
+      max-width: 80%;
+      word-wrap: break-word;
+    }
+    .chat-message.user {
+      background: #1e40af;
+      color: white;
+      margin-left: auto;
+      text-align: right;
+    }
+    .chat-message.bot {
+      background: #e5e7eb;
+      color: black;
+    }
+    .chat-message button {
+      margin-top: 5px;
+      padding: 5px 10px;
+      background: #1e40af;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Mobile Health Clinics for Rural Kenya provides healthcare access to rural communities, reducing mortality rates through mobile clinics.">
+  <meta name="keywords" content="mobile health clinics, rural healthcare Kenya, donate for health, malaria prevention">
+  <meta name="author" content="Mobile Health Clinics Team">
+  <title>Mobile Health Clinics for Rural Kenya</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .slider-container {
+      position: relative;
+      overflow: hidden;
+    }
+    .slider {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+    .slide {
+      min-width: 100%;
+      box-sizing: border-box;
+    }
+    #backToTop {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      display: none;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    #chatbotContainer {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      width: 320px;
+      max-height: 500px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      display: none;
+      flex-direction: column;
+      z-index: 1000;
+    }
+    #chatbotHeader {
+      background: #1e40af;
+      color: white;
+      padding: 10px;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    #chatbotMessages {
+      flex: 1;
+      padding: 10px;
+      overflow-y: auto;
+      background: #f9fafb;
+    }
+    #chatbotInput {
+      border-top: 1px solid #e5e7eb;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+    }
+    #chatbotInput input {
+      flex: 1;
+      padding: 8px;
+      border: 1px solid #d1d5db;
+      border-radius: 5px;
+      outline: none;
+    }
+    #chatbotInput button {
+      margin-left: 8px;
+      padding: 8px 12px;
+      background: #1e40af;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #chatbotToggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #1e40af;
+      color: white;
+      padding: 10px;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 1000;
+    }
+    .chat-message {
+      margin-bottom: 10px;
+      padding: 8px 12px;
+      border-radius: 10px;
+      max-width: 80%;
+      word-wrap: break-word;
+    }
+    .chat-message.user {
+      background: #1e40af;
+      color: white;
+      margin-left: auto;
+      text-align: right;
+    }
+    .chat-message.bot {
+      background: #e5e7eb;
+      color: black;
+    }
+    .chat-message button {
+      margin-top: 5px;
+      padding: 5px 10px;
+      background: #1e40af;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body class="bg-green-50 text-gray-800 font-sans">
+  <!-- Navigation -->
+  <nav class="bg-blue-600 text-white p-4 sticky top-0 z-10 shadow-lg">
+    <div class="container mx-auto flex justify-between items-center">
+      <h1 class="text-2xl font-bold">Mobile Health Clinics</h1>
+      <ul class="flex space-x-6">
+        <li><a href="#home" class="hover:underline focus:outline-none focus:ring-2 focus:ring-yellow-500">Home</a></li>
+        <li><a href="#about" class="hover:underline focus:outline-none focus:ring-2 focus:ring-yellow-500">About</a></li>
+        <li><a href="#services" class="hover:underline focus:outline-none focus:ring-2 focus:ring-yellow-500">Services</a></li>
+        <li><a href="#get-involved" class="hover:underline focus:outline-none focus:ring-2 focus:ring-yellow-500">Get Involved</a></li>
+        <li><a href="#faq" class="hover:underline focus:outline-none focus:ring-2 focus:ring-yellow-500">FAQ</a></li>
+        <li><a href="#testimonials" class="hover:underline focus:outline-none focus:ring-2 focus:ring-yellow-500">Testimonials</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="home" class="bg-cover bg-center h-80 flex items-center justify-center text-center text-white bg-black bg-opacity-50" style="background-image: url('https://via.placeholder.com/1200x400?text=Mobile+Clinic+Image')">
+    <div class="container mx-auto px-4 fade-in">
+      <h2 class="text-4xl font-bold mb-4">Bringing Healthcare to Rural Kenya</h2>
+      <p class="text-lg mb-6 max-w-2xl mx-auto">Limited access to healthcare in rural areas leads to high mortality rates from treatable conditions like malaria and maternal health issues.</p>
+      <div class="space-x-4">
+        <a href="#get-involved" class="bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-6 rounded-lg shadow-lg focus:outline-none focus:ring-2 focus:ring-yellow-300">Donate Now</a>
+        <a href="#get-involved" class="bg-green-500 hover:bg-green-600 text-white py-2 px-6 rounded-lg shadow-lg focus:outline-none focus:ring-2 focus:ring-green-300">Get Involved</a>
+      </div>
+    </div>
+  </section>
+  <!-- Image Instruction: Replace the background image URL 'https://via.placeholder.com/1200x400?text=Mobile+Clinic+Image' with a real image URL of a mobile health clinic serving a rural Kenyan community. Suggested sources: 
+  - Unsplash (search "mobile clinic Africa" or "rural healthcare Kenya"): https://unsplash.com
+  - Pexels (search "rural medical clinic"): https://www.pexels.com
+  Ensure the image is high-resolution (recommended size: 1200x400 pixels) and has a clear focal point (e.g., a clinic van or health workers with patients). Optimize the image for web use (e.g., compress to under 100KB using TinyPNG). Alt text (for accessibility): "Mobile health clinic providing care in a rural Kenyan village on May 22, 2025, 03:15 PM EAT." -->
+
+  <!-- About Us -->
+  <section id="about" class="py-12 bg-white">
+    <div class="container mx-auto px-4 fade-in">
+      <h2 class="text-3xl font-bold text-center mb-6 text-blue-600">About Us</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+        <div>
+          <p class="text-lg max-w-3xl mx-auto">We deploy mobile health clinics equipped with basic diagnostic tools and staffed by trained community health workers to provide vaccinations, prenatal care, and health education, aiming to serve rural communities in Kenya.</p>
+        </div>
+        <div>
+          <img src="community.jpg" alt="Community health worker assisting a patient in a rural Kenyan setting" class="rounded-lg shadow-lg">
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Image Instruction: Replace the placeholder image in the About Us section with a real photo of a community health worker assisting a patient in a rural setting. Suggested source: Unsplash or Pexels (search "rural healthcare Africa"). Image size: approximately 400x300 pixels. -->
+
+  <!-- Services Section -->
+  <section id="services" class="py-12 bg-gray-100">
+    <div class="container mx-auto px-4 fade-in">
+      <h2 class="text-3xl font-bold text-center mb-6 text-blue-600">Our Services</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        <!-- Vaccinations -->
+        <div class="p-6 bg-white rounded-lg shadow-lg text-center">
+          <img src="vaccin.jpg" alt="A child receiving a vaccination at a mobile clinic in rural Kenya" class="rounded-lg mb-4 mx-auto">
+          <h3 class="text-xl font-semibold mb-2 text-green-600">Vaccinations</h3>
+          <p>We provide essential vaccines to protect children and adults from diseases like measles, polio, and malaria, ensuring healthier communities.</p>
+        </div>
+        <!-- Prenatal Care -->
+        <div class="p-6 bg-white rounded-lg shadow-lg text-center">
+          <img src="prental.jpg" alt="A pregnant woman receiving prenatal care at a mobile clinic in rural Kenya" class="rounded-lg mb-4 mx-auto">
+          <h3 class="text-xl font-semibold mb-2 text-green-600">Prenatal Care</h3>
+          <p>Our clinics offer prenatal check-ups, nutritional advice, and safe delivery support to expectant mothers in rural areas.</p>
+        </div>
+        <!-- Health Education -->
+        <div class="p-6 bg-white rounded-lg shadow-lg text-center">
+          <img src="education.jpg" alt="A community health worker conducting a health education session in rural Kenya" class="rounded-lg mb-4 mx-auto">
+          <h3 class="text-xl font-semibold mb-2 text-green-600">Health Education</h3>
+          <p>We educate communities on hygiene, disease prevention, and family planning to empower them with knowledge for better health.</p>
+        </div>
+        <!-- Disease Screening -->
+        <div class="p-6 bg-white rounded-lg shadow-lg text-center">
+          <img src="sceeen.jpg" alt="A patient undergoing disease screening at a mobile clinic in rural Kenya" class="rounded-lg mb-4 mx-auto">
+          <h3 class="text-xl font-semibold mb-2 text-green-600">Disease Screening</h3>
+          <p>We conduct screenings for common rural diseases such as tuberculosis, HIV, and diabetes to enable early detection and treatment.</p>
+        </div>
+        <!-- Emergency First Aid -->
+        <div class="p-6 bg-white rounded-lg shadow-lg text-center">
+          <img src="aid.jpg" alt="A health worker providing emergency first aid at a mobile clinic in rural Kenya" class="rounded-lg mb-4 mx-auto">
+          <h3 class="text-xl font-semibold mb-2 text-green-600">Emergency First Aid</h3>
+          <p>Our teams are trained to provide immediate first aid for injuries and acute conditions, stabilizing patients until further care is available.</p>
+        </div>
+        <!-- Nutritional Support -->
+        <div class="p-6 bg-white rounded-lg shadow-lg text-center">
+          <img src="donation.jpg" alt="A family receiving nutritional support at a mobile clinic in rural Kenya" class="rounded-lg mb-4 mx-auto">
+          <h3 class="text-xl font-semibold mb-2 text-green-600">Nutritional Support</h3>
+          <p>We offer nutritional assessments and supplements to combat malnutrition, especially among children and pregnant women.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Image Instruction: Replace the placeholder images in the Services section with real photos relevant to each service. Suggested sources: Unsplash or Pexels.
+  - Vaccinations: Search "vaccination Africa child" (size: 200x150 pixels). Alt text: "A child receiving a vaccination at a mobile clinic in rural Kenya."
+  - Prenatal Care: Search "prenatal care Africa" (size: 200x150 pixels). Alt text: "A pregnant woman receiving prenatal care at a mobile clinic in rural Kenya."
+  - Health Education: Search "health education rural Africa" (size: 200x150 pixels). Alt text: "A community health worker conducting a health education session in rural Kenya."
+  - Disease Screening: Search "disease screening Africa" (size: 200x150 pixels). Alt text: "A patient undergoing disease screening at a mobile clinic in rural Kenya."
+  - Emergency First Aid: Search "emergency first aid rural" (size: 200x150 pixels). Alt text: "A health worker providing emergency first aid at a mobile clinic in rural Kenya."
+  - Nutritional Support: Search "nutritional support Africa" (size: 200x150 pixels). Alt text: "A family receiving nutritional support at a mobile clinic in rural Kenya."
+  Optimize each image for web use (e.g., compress to under 50KB using TinyPNG). -->
+
+  <!-- Get Involved -->
+  <section id="get-involved" class="py-12 bg-gray-100">
+    <div class="container mx-auto px-4 fade-in">
+      <h2 class="text-3xl font-bold text-center mb-6 text-blue-600">Get Involved</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+        <!-- Donation -->
+        <div class="p-6 bg-white rounded-lg shadow-lg">
+          <h3 class="text-xl font-semibold mb-3 text-green-600">Donate</h3>
+          <p class="mb-4">Support our mission with a donation (e.g., $10 for medical supplies).</p>
+          <p class="mb-4">Total Donations: <span id="donationCounter">$0</span></p>
+          <div id="donation" class="mt-2">
+            <button id="donateBtn" class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-green-300" aria-label="Donate $10 to support medical supplies">Donate $10</button>
+          </div>
+        </div>
+        <!-- Contact Form -->
+        <div class="p-6 bg-white rounded-lg shadow-lg">
+          <h3 class="text-xl font-semibold mb-3 text-blue-600">Contact Us</h3>
+          <form id="contactForm" class="space-y-4">
+            <div>
+              <label for="name" class="block text-sm font-medium mb-1">Your Name</label>
+              <input type="text" id="name" placeholder="Your Name" class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300" required aria-required="true">
+            </div>
+            <div>
+              <label for="email" class="block text-sm font-medium mb-1">Your Email</label>
+              <input type="email" id="email" placeholder="Your Email" class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300" required aria-required="true">
+            </div>
+            <div>
+              <label for="message" class="block text-sm font-medium mb-1">Message</label>
+              <textarea id="message" placeholder="Message" class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300" rows="3" required aria-required="true"></textarea>
+            </div>
+            <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-300">Send</button>
+          </form>
+          <p id="formMessage" class="mt-3 text-green-600 hidden" role="status">Message sent successfully!</p>
+        </div>
+      </div>
+      <!-- Newsletter Subscription -->
+      <div class="mt-8 p-6 bg-white rounded-lg shadow-lg max-w-lg mx-auto">
+        <h3 class="text-xl font-semibold mb-3 text-blue-600">Subscribe to Our Newsletter</h3>
+        <form id="newsletterForm" class="space-y-4">
+          <div>
+            <label for="newsletterEmail" class="block text-sm font-medium mb-1">Your Email</label>
+            <input type="email" id="newsletterEmail" placeholder="Your Email" class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300" required aria-required="true">
+          </div>
+          <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-4 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-yellow-300">Subscribe</button>
+        </form>
+        <p id="newsletterMessage" class="mt-3 text-green-600 hidden" role="status">Subscribed successfully!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section id="faq" class="py-12 bg-white">
+    <div class="container mx-auto px-4 fade-in">
+      <h2 class="text-3xl font-bold text-center mb-6 text-blue-600">Frequently Asked Questions</h2>
+      <div class="max-w-3xl mx-auto space-y-4">
+        <details class="p-4 bg-gray-100 rounded-lg shadow">
+          <summary class="font-semibold cursor-pointer">What services do the clinics provide?</summary>
+          <div class="mt-2 flex items-center space-x-4">
+            <p>Our clinics offer vaccinations, prenatal care, health education, disease screening, emergency first aid, and nutritional support to rural communities.</p>
+            <img src="first edicine.jpg "alt="Medical supplies being distributed at a mobile clinic" class="rounded">
+          </div>
+        </details>
+        <details class="p-4 bg-gray-100 rounded-lg shadow">
+          <summary class="font-semibold cursor-pointer">How can I volunteer?</summary>
+          <div class="mt-2 flex items-center space-x-4">
+            <p>Contact us through the form in the "Get Involved" section, and we'll reach out with opportunities.</p>
+            <img src="volunteerc.jpg" alt="A volunteer training session in a rural area" class="rounded">
+          </div>
+        </details>
+        <details class="p-4 bg-gray-100 rounded-lg shadow">
+          <summary class="font-semibold cursor-pointer">Where do donations go?</summary>
+          <div class="mt-2 flex items-center space-x-4">
+            <p>Donations fund medical supplies, fuel for mobile clinics, and training for health workers.</p>
+            <img src="familly vaccin.jpg" alt="Medical supplies being distributed at a mobile clinic" class="rounded">
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+  <!-- Image Instruction: Replace the placeholder images in the FAQ section with real photos relevant to each question. Suggested sources: Unsplash or Pexels.
+  - Vaccinations: Search "vaccination Africa child" (size: 100x100 pixels).
+  - Volunteer: Search "volunteer training rural" (size: 100x100 pixels).
+  - Supplies: Search "medical supplies distribution" (size: 100x100 pixels).
+  Optimize each image for web use (e.g., compress to under 50KB using TinyPNG). -->
+
+  <!-- Testimonials Slider -->
+  <section id="testimonials" class="py-12 bg-gray-100">
+    <div class="container mx-auto px-4 fade-in">
+      <h2 class="text-3xl font-bold text-center mb-6 text-blue-600">What People Say</h2>
+      <div class="slider-container max-w-3xl mx-auto">
+        <div class="slider" id="testimonialsSlider">
+          <div class="slide p-6 bg-white rounded-lg shadow-lg text-center">
+            <img src="kisumu.jpg" alt="Mary from Kisumu, a beneficiary of the mobile clinic" class="rounded-full mx-auto mb-4">
+            <p class="mb-4">"The mobile clinic saved my child's life by providing timely vaccinations."</p>
+            <p class="font-semibold">– Mary, Kisumu</p>
+          </div>
+          <div class="slide p-6 bg-white rounded-lg shadow-lg text-center">
+            <img src="mombasa.jpg" alt="Amina from Mombasa, a beneficiary of health education" class="rounded-full mx-auto mb-4">
+            <p class="mb-4">"I learned how to care for my pregnancy thanks to the health education."</p>
+            <p class="font-semibold">– Amina, Mombasa</p>
+          </div>
+          <div class="slide p-6 bg-white rounded-lg shadow-lg text-center">
+            <img src="nai.jpg" alt="John from Nairobi, a volunteer at the mobile clinic" class="rounded-full mx-auto mb-4">
+            <p class="mb-4">"Volunteering with the clinics gave me valuable skills."</p>
+            <p class="font-semibold">– John, Nairobi</p>
+          </div>
+          <div class="slide p-6 bg-white rounded-lg shadow-lg text-center">
+            <img src="eldoret.jpg" alt="Sara from Eldoret, a beneficiary of disease screening" class="rounded-full mx-auto mb-4">
+            <p class="mb-4">"The disease screening helped me catch my condition early."</p>
+            <p class="font-semibold">– Sara, Eldoret</p>
+          </div>
+          <div class="slide p-6 bg-white rounded-lg shadow-lg text-center">
+            <img src="v" alt="Peter from Nakuru, a recipient of emergency first aid" class="rounded-full mx-auto mb-4">
+            <p class="mb-4">"The first aid team saved me after an accident."</p>
+            <p class="font-semibold">– Peter, Nakuru</p>
+          </div>
+          <div class="slide p-6 bg-white rounded-lg shadow-lg text-center">
+            <img src="mombasa.jpg" alt="Hawa from Mombasa, a beneficiary of nutritional support" class="rounded-full mx-auto mb-4">
+            <p class="mb-4">"Nutritional support helped my child gain strength."</p>
+            <p class="font-semibold">– Hawa, Mombasa</p>
+          </div>
+        </div>
+      </div>
+      <div class="flex justify-center mt-4 space-x-2">
+        <button id="prevSlide" class="bg-blue-500 hover:bg-blue-600 text-white py-1 px-3 rounded focus:outline-none focus:ring-2 focus:ring-blue-300" aria-label="Previous Testimonial">←</button>
+        <button id="nextSlide" class="bg-blue-500 hover:bg-blue-600 text-white py-1 px-3 rounded focus:outline-none focus:ring-2 focus:ring-blue-300" aria-label="Next Testimonial">→</button>
+      </div>
+    </div>
+  </section>
+  <!-- Image Instruction: Replace the placeholder images in the Testimonials section with real photos or culturally appropriate avatars. Suggested sources: Unsplash or Pexels (search "African woman portrait," "African man portrait"). Image size: 50x50 pixels.
+  - Mary: Alt text: "Mary from Kisumu, a beneficiary of the mobile clinic."
+  - Amina: Alt text: "Amina from Mombasa, a beneficiary of health education."
+  - John: Alt text: "John from Nairobi, a volunteer at the mobile clinic."
+  - Sara: Alt text: "Sara from Eldoret, a beneficiary of disease screening."
+  - Peter: Alt text: "Peter from Nakuru, a recipient of emergency first aid."
+  - Hawa: Alt text: "Hawa from Mombasa, a beneficiary of nutritional support." -->
+
+  <!-- Footer -->
+  <footer class="bg-blue-600 text-white p-4 text-center">
+    <p>© 2025 Mobile Health Clinics for Rural Kenya. All rights reserved.</p>
+  </footer>
+
+  <!-- Chatbot -->
+  <div id="chatbotContainer">
+    <div id="chatbotHeader">
+      <span>Health Assistant</span>
+      <button id="chatbotClose" class="text-white text-xl">×</button>
+    </div>
+    <div id="chatbotMessages">
+      <div class="chat-message bot">Hello! I'm your Health Assistant. How can I help you today? Choose an option:<br>
+        <button onclick="handleChatbotOption('symptom')">Check Symptoms</button><br>
+        <button onclick="handleChatbotOption('doctor')">Chat with a Doctor</button><br>
+        <button onclick="handleChatbotOption('patient')">Connect with Patients</button>
+      </div>
+    </div>
+    <div id="chatbotInput">
+      <input type="text" id="chatbotInputField" placeholder="Type your message..." onkeypress="if(event.key === 'Enter') sendMessage()">
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+  <div id="chatbotToggle">💬</div>
+
+  <!-- Back to Top Button -->
+  <button id="backToTop" class="bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-4 rounded-lg shadow-lg focus:outline-none focus:ring-2 focus:ring-yellow-300" aria-label="Back to Top">↑ Top</button>
+
+  <script>
+    // Fade-in Animation on Scroll
+    const fadeElements = document.querySelectorAll('.fade-in');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+    fadeElements.forEach(el => observer.observe(el));
+
+    // Donation Counter
+    let totalDonations = parseInt(localStorage.getItem('totalDonations')) || 0;
+    document.getElementById('donationCounter').textContent = `$${totalDonations}`;
+    document.getElementById('donateBtn').addEventListener('click', () => {
+      totalDonations += 10;
+      localStorage.setItem('totalDonations', totalDonations);
+      document.getElementById('donationCounter').textContent = `$${totalDonations}`;
+      alert('Thank you for your $10 donation! Your support helps provide medical supplies.');
+    });
+
+    // Contact Form Submission with Validation
+    document.getElementById('contactForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const name = document.getElementById('name').value;
+      const message = document.getElementById('message').value;
+
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(email)) {
+        document.getElementById('formMessage').textContent = 'Please enter a valid email address.';
+        document.getElementById('formMessage').classList.remove('hidden', 'text-green-600');
+        document.getElementById('formMessage').classList.add('text-red-600');
+        return;
+      }
+
+      if (name.length < 2 || message.length < 10) {
+        document.getElementById('formMessage').textContent = 'Name must be at least 2 characters, and message at least 10 characters.';
+        document.getElementById('formMessage').classList.remove('hidden', 'text-green-600');
+        document.getElementById('formMessage').classList.add('text-red-600');
+        return;
+      }
+
+      document.getElementById('formMessage').textContent = 'Message sent successfully!';
+      document.getElementById('formMessage').classList.remove('hidden', 'text-red-600');
+      document.getElementById('formMessage').classList.add('text-green-600');
+      e.target.reset();
+      setTimeout(() => document.getElementById('formMessage').classList.add('hidden'), 3000);
+    });
+
+    // Newsletter Subscription
+    document.getElementById('newsletterForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = document.getElementById('newsletterEmail').value;
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(email)) {
+        document.getElementById('newsletterMessage').textContent = 'Please enter a valid email address.';
+        document.getElementById('newsletterMessage').classList.remove('hidden', 'text-green-600');
+        document.getElementById('newsletterMessage').classList.add('text-red-600');
+        return;
+      }
+
+      document.getElementById('newsletterMessage').textContent = 'Subscribed successfully!';
+      document.getElementById('newsletterMessage').classList.remove('hidden', 'text-red-600');
+      document.getElementById('newsletterMessage').classList.add('text-green-600');
+      e.target.reset();
+      setTimeout(() => document.getElementById('newsletterMessage').classList.add('hidden'), 3000);
+    });
+
+    // Testimonials Slider
+    const slider = document.getElementById('testimonialsSlider');
+    const slides = document.querySelectorAll('.slide');
+    let currentSlide = 0;
+
+    function updateSlider() {
+      slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+    }
+
+    document.getElementById('nextSlide').addEventListener('click', () => {
+      currentSlide = (currentSlide + 1) % slides.length;
+      updateSlider();
+    });
+
+    document.getElementById('prevSlide').addEventListener('click', () => {
+      currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+      updateSlider();
+    });
+
+    setInterval(() => {
+      currentSlide = (currentSlide + 1) % slides.length;
+      updateSlider();
+    }, 5000);
+
+    // Back to Top Button
+    const backToTopBtn = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        backToTopBtn.style.display = 'block';
+      } else {
+        backToTopBtn.style.display = 'none';
+      }
+    });
+
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Chatbot Functionality
+    const chatbotContainer = document.getElementById('chatbotContainer');
+    const chatbotToggle = document.getElementById('chatbotToggle');
+    const chatbotClose = document.getElementById('chatbotClose');
+    const chatbotMessages = document.getElementById('chatbotMessages');
+    const chatbotInputField = document.getElementById('chatbotInputField');
+
+    chatbotToggle.addEventListener('click', () => {
+      chatbotContainer.style.display = 'flex';
+      chatbotToggle.style.display = 'none';
+    });
+
+    chatbotClose.addEventListener('click', () => {
+      chatbotContainer.style.display = 'none';
+      chatbotToggle.style.display = 'flex';
+    });
+
+    let chatState = 'initial';
+    let symptoms = [];
+
+    function addMessage(message, sender) {
+      const messageDiv = document.createElement('div');
+      messageDiv.classList.add('chat-message', sender);
+      messageDiv.innerHTML = message;
+      chatbotMessages.appendChild(messageDiv);
+      chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+    }
+
+    function sendMessage() {
+      const message = chatbotInputField.value.trim();
+      if (!message) return;
+
+      addMessage(message, 'user');
+      chatbotInputField.value = '';
+
+      setTimeout(() => {
+        if (chatState === 'initial') {
+          addMessage('Please choose an option to proceed.', 'bot');
+        } else if (chatState === 'symptom') {
+          handleSymptomCheck(message);
+        } else if (chatState === 'doctor') {
+          handleDoctorChat(message);
+        } else if (chatState === 'patient') {
+          handlePatientChat(message);
+        }
+      }, 500);
+    }
+
+    function handleChatbotOption(option) {
+      chatState = option;
+      if (option === 'symptom') {
+        addMessage('Please describe your symptoms (e.g., fever, cough, headache).', 'bot');
+      } else if (option === 'doctor') {
+        addMessage('Connecting you with a doctor. Please describe your issue or ask your question.', 'bot');
+      } else if (option === 'patient') {
+        addMessage('Welcome to the patient community chat! Share your experience or ask for advice.', 'bot');
+      }
+    }
+
+    function handleSymptomCheck(message) {
+      symptoms.push(message.toLowerCase());
+      if (symptoms.length < 3) {
+        addMessage('Thank you. Please share any other symptoms you’re experiencing, or type "done" if you’re finished.', 'bot');
+      } else if (message.toLowerCase() === 'done' || symptoms.length >= 3) {
+        let response = 'Based on your symptoms (' + symptoms.join(', ') + '), you might be experiencing a common illness like a cold or flu. ';
+        if (symptoms.includes('fever') && symptoms.includes('cough')) {
+          response += 'However, this could also indicate a respiratory infection. ';
+        }
+        if (symptoms.includes('headache') && symptoms.includes('fever')) {
+          response += 'This could potentially be related to malaria, which is common in rural Kenya. ';
+        }
+        response += 'I recommend consulting a doctor for a proper diagnosis. Would you like to chat with a doctor now?<br><button onclick="handleChatbotOption(\'doctor\')">Yes, connect me</button>';
+        addMessage(response, 'bot');
+        symptoms = [];
+        chatState = 'initial';
+      }
+    }
+
+    function handleDoctorChat(message) {
+      addMessage('A doctor will review your message: "' + message + '". For now, I can assist with general advice. Would you like to know about self-care for your issue?', 'bot');
+      chatState = 'initial';
+    }
+
+    function handlePatientChat(message) {
+      addMessage('Thank you for sharing: "' + message + '". Other patients might respond soon. For now, would you like to return to the main menu?<br><button onclick="handleChatbotOption(\'initial\')">Back to Menu</button>', 'bot');
+      chatState = 'initial';
+    }
+  </script>
+</body>
+</html>
